@@ -1,20 +1,23 @@
 "use client";
 
 import { Canvas } from "@react-three/fiber";
-import { useRef, useState } from "react";
 import { Physics, usePlane, useSphere } from "@react-three/cannon";
 import { Environment, OrbitControls } from "@react-three/drei";
-import { motion } from "framer-motion";
 import { Vector3 } from "three";
 
-function Ball({ position = [0, 5, 2], onScore }) {
+interface BallProps {
+  position?: [number, number, number];
+  onScore: () => void;
+}
+
+function Ball({ position = [0, 5, 2], onScore }: BallProps) {
   const [ref, api] = useSphere(() => ({
     mass: 1,
     position,
     args: [0.5],
   }));
 
-  const shoot = (event) => {
+  const shoot = (event: { stopPropagation: () => void }) => {
     event.stopPropagation();
     
     // Adjusted velocity for a perfect shot from the new position

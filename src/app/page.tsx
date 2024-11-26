@@ -1,8 +1,4 @@
-import { Header } from "@/components/header";
 import { Card } from "@/components/card";
-import { Button } from "@/components/button";
-import { WavyLine } from "@/components/animations/wavy-line";
-import { ConfettiButton } from "@/components/animations/confetti-button";
 import dynamic from 'next/dynamic';
 
 // Dynamically import the animated hero section with client-side rendering
