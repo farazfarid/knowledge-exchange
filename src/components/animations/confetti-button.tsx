@@ -3,6 +3,7 @@
 import { Button } from "@/components/button";
 import { motion } from "framer-motion";
 import { useState, useRef } from "react";
+import type { HTMLMotionProps } from "framer-motion";
 
 interface ConfettiPiece {
   id: number;
@@ -13,8 +14,9 @@ interface ConfettiPiece {
   shape: 'circle' | 'square' | 'triangle' | 'star';
 }
 
-interface ConfettiButtonProps extends React.ButtonHTMLAttributes<HTMLButtonElement> {
-  children: React.ReactNode;
+interface ConfettiButtonProps extends HTMLMotionProps<"button"> {
+  variant?: "default" | "outline" | "ghost";
+  size?: "sm" | "md" | "lg";
 }
 
 export function ConfettiButton({ children, ...props }: ConfettiButtonProps) {
@@ -64,7 +66,10 @@ export function ConfettiButton({ children, ...props }: ConfettiButtonProps) {
   return (
     <div ref={buttonRef} className="relative inline-block">
       <Button
-        onClick={createConfetti}
+        onClick={(e) => {
+          createConfetti();
+          props.onClick?.(e);
+        }}
         className="relative z-10 px-8 py-3 text-lg font-medium transition-all"
         {...props}
       >
