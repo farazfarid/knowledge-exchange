@@ -13,7 +13,11 @@ interface ConfettiPiece {
   shape: 'circle' | 'square' | 'triangle' | 'star';
 }
 
-export function ConfettiButton({ children, ...props }) {
+interface ConfettiButtonProps extends React.ButtonHTMLAttributes<HTMLButtonElement> {
+  children: React.ReactNode;
+}
+
+export function ConfettiButton({ children, ...props }: ConfettiButtonProps) {
   const [confetti, setConfetti] = useState<ConfettiPiece[]>([]);
   const buttonRef = useRef<HTMLDivElement>(null);
 
