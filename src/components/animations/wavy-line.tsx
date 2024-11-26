@@ -1,14 +1,15 @@
 "use client";
 
-import { motion } from "framer-motion";
+import { motion, HTMLMotionProps } from "framer-motion";
 
-export function WavyLine() {
+export function WavyLine(props: HTMLMotionProps<"div">) {
   return (
     <motion.div
       className="relative h-24 overflow-hidden"
       initial={{ opacity: 0 }}
       animate={{ opacity: 1 }}
       transition={{ duration: 1 }}
+      {...props}
     >
       {[1, 2, 3].map((i) => (
         <motion.div

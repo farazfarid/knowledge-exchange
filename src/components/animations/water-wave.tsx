@@ -1,10 +1,10 @@
 "use client";
 
-import { motion } from "framer-motion";
+import { motion, HTMLMotionProps } from "framer-motion";
 
-export function WaterWave() {
+export function WaterWave(props: HTMLMotionProps<"div">) {
   return (
-    <div className="relative h-32 overflow-hidden">
+    <div className="relative h-32 overflow-hidden" {...props}>
       {[1, 2, 3, 4].map((i) => (
         <motion.div
           key={i}

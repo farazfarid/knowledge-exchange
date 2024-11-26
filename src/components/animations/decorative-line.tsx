@@ -1,14 +1,15 @@
 "use client";
 
-import { motion } from "framer-motion";
+import { motion, HTMLMotionProps } from "framer-motion";
 
-export function DecorativeLine() {
+export function DecorativeLine(props: HTMLMotionProps<"div">) {
   return (
     <motion.div
       className="relative h-0.5 w-full overflow-hidden my-8"
       initial={{ opacity: 0 }}
       animate={{ opacity: 1 }}
       transition={{ duration: 0.5 }}
+      {...props}
     >
       <motion.div
         className="absolute inset-0 bg-gradient-to-r from-transparent via-primary to-transparent"
