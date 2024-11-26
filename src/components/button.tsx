@@ -2,8 +2,9 @@
 
 import { motion } from "framer-motion";
 import { cn } from "@/lib/utils";
+import type { HTMLMotionProps } from "framer-motion";
 
-interface ButtonProps extends React.ButtonHTMLAttributes<HTMLButtonElement> {
+interface ButtonProps extends HTMLMotionProps<"button"> {
   variant?: "default" | "outline" | "ghost";
   size?: "sm" | "md" | "lg";
 }
