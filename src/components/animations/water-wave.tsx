@@ -4,7 +4,7 @@ import { motion, HTMLMotionProps } from "framer-motion";
 
 export function WaterWave(props: HTMLMotionProps<"div">) {
   return (
-    <div className="relative h-32 overflow-hidden" {...props}>
+    <motion.div className="relative h-32 overflow-hidden" {...props}>
       {[1, 2, 3, 4].map((i) => (
         <motion.div
           key={i}
@@ -24,6 +24,6 @@ export function WaterWave(props: HTMLMotionProps<"div">) {
           }}
         />
       ))}
-    </div>
+    </motion.div>
   );
 } 
