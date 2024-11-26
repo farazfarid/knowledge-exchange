@@ -3,15 +3,20 @@
 import { Canvas } from "@react-three/fiber";
 import { Physics, usePlane, useSphere } from "@react-three/cannon";
 import { Environment, OrbitControls } from "@react-three/drei";
-import { Vector3 } from "three";
+import { useState } from "react";
+import type { Mesh } from "three";
 
 interface BallProps {
   position?: [number, number, number];
   onScore: () => void;
 }
 
+interface NetProps {
+  position: [number, number, number];
+}
+
 function Ball({ position = [0, 5, 2], onScore }: BallProps) {
-  const [ref, api] = useSphere(() => ({
+  const [ref, api] = useSphere<Mesh>(() => ({
     mass: 1,
     position,
     args: [0.5],
@@ -20,24 +25,20 @@ function Ball({ position = [0, 5, 2], onScore }: BallProps) {
   const shoot = (event: { stopPropagation: () => void }) => {
     event.stopPropagation();
     
-    // Adjusted velocity for a perfect shot from the new position
     api.velocity.set(
       0,        // x velocity (straight)
       6,        // y velocity
       -4        // z velocity (towards hoop)
     );
     
-    // Add a slight backspin for that perfect swish
     api.angularVelocity.set(-1, 0, 0);
 
-    // Trigger score after ball would go through hoop
     setTimeout(() => {
       onScore();
     }, 1000);
 
-    // Reset ball position after shot
     setTimeout(() => {
-      api.position.set(0, 5, 2);  // Reset to new starting position
+      api.position.set(0, 5, 2);
       api.velocity.set(0, 0, 0);
       api.angularVelocity.set(0, 0, 0);
     }, 2000);
@@ -55,7 +56,7 @@ function Ball({ position = [0, 5, 2], onScore }: BallProps) {
   );
 }
 
-function Net({ position }) {
+function Net({ position }: NetProps) {
   return (
     <mesh position={position}>
       <cylinderGeometry args={[1, 0.7, 1, 16, 1, true]} />
@@ -73,7 +74,7 @@ function Net({ position }) {
 function Hoop() {
   const radius = 1;
   const tubeRadius = 0.05;
-  const position = [0, 4, -2];  // Moved hoop back
+  const position: [number, number, number] = [0, 4, -2];
 
   return (
     <group position={position}>
@@ -102,7 +103,7 @@ function Hoop() {
 }
 
 function Ground() {
-  const [ref] = usePlane(() => ({
+  const [ref] = usePlane<Mesh>(() => ({
     rotation: [-Math.PI / 2, 0, 0],
     position: [0, 0, 0],
   }));
